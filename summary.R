@@ -6,7 +6,7 @@ austen_df$Title <- tolower(austen_df$Title)
 
 # Filter for all 6 novels 
 austen_novels_df <- austen_df %>% 
-  filter(str_detect(Title, "sense and sensibility|pride and prejudice|mansfield park|emma|persuasion|Northanger Abbey") & str_detect(Title, "zombies|sea monsters|drama", negate = TRUE))
+  filter(str_detect(Title, "sense and sensibility|pride and prejudice|mansfield park|emma|persuasion|northanger abbey") & str_detect(Title, "zombies|sea monsters|drama", negate = TRUE))
 
 # Add duplicate title column (new column Name)
 austen_novels2_df <- austen_novels_df %>% 
@@ -65,6 +65,4 @@ unpopular_novel_checkouts <- austen_novels2_df %>%
   filter(total_checkouts == min(total_checkouts)) %>% 
   pull(total_checkouts)
 
-# Question 4
-# a) How has number of print books and ebooks changed over the years?
 

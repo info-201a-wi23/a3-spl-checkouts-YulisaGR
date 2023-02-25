@@ -9,14 +9,14 @@ austen_df$Title <- tolower(austen_df$Title)
 
 # Filter for all 6 novels 
 austen_novels_df <- austen_df %>% 
-  filter(str_detect(Title, "sense and sensibility|pride and prejudice|mansfield park|emma|persuasion|Northanger Abbey") 
+  filter(str_detect(Title, "sense and sensibility|pride and prejudice|mansfield park|emma|persuasion|northanger abbey") 
          & str_detect(Title, "zombies|sea monsters|drama", negate = TRUE))
 
 # Add duplicate title column (new column Name)
 austen_novels2_df <- austen_novels_df %>% 
   mutate(Name = Title)
 
-# Replace 
+# Replace with simple titles
 austen_novels2_df$Name[str_detect(austen_novels2_df$Name, "sense and sensibility")] <- "Sense and Sensibility"
 austen_novels2_df$Name[str_detect(austen_novels2_df$Name, "pride and prejudice")] <- "Pride and Prejudice"
 austen_novels2_df$Name[str_detect(austen_novels2_df$Name, "mansfield park")] <- "Mansfield Park"
@@ -30,18 +30,19 @@ austen_novels3_df <- austen_novels2_df %>%
 
 austen_novels3_df$Date <- as.Date(austen_novels3_df$Date, format = "%Y-%m-%d")
 
+# Add checkouts for each title and month
 austen_novels_by_date.df <- austen_novels3_df %>% 
   group_by(Date, Name) %>% 
   summarize(monthly_checkouts = sum(Checkouts))
 
-
+# Line Plot 
 line_plot <- ggplot(austen_novels_by_date.df) +
   geom_line(aes(x = as.Date(Date), 
                 y = monthly_checkouts,
                 color = Name)) +
   labs(title = "Monthly Checkouts of Jane Austen Novels",
        x = "Date",
-       y = "Total Checkouts",
+       y = "Monthly Checkouts",
        color = "Title") 
 
 ggplotly(line_plot)

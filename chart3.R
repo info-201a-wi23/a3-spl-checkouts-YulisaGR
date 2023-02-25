@@ -9,14 +9,14 @@ austen_df$Title <- tolower(austen_df$Title)
 
 # Filter for all 6 novels 
 austen_novels_df <- austen_df %>% 
-  filter(str_detect(Title, "sense and sensibility|pride and prejudice|mansfield park|emma|persuasion|Northanger Abbey") 
+  filter(str_detect(Title, "sense and sensibility|pride and prejudice|mansfield park|emma|persuasion|northanger abbey") 
          & str_detect(Title, "zombies|sea monsters|drama", negate = TRUE))
 
 # Add duplicate title column (new column Name)
 austen_novels2_df <- austen_novels_df %>% 
   mutate(Name = Title)
 
-# Replace 
+# Replace with simple titles
 austen_novels2_df$Name[str_detect(austen_novels2_df$Name, "sense and sensibility")] <- "Sense and Sensibility"
 austen_novels2_df$Name[str_detect(austen_novels2_df$Name, "pride and prejudice")] <- "Pride and Prejudice"
 austen_novels2_df$Name[str_detect(austen_novels2_df$Name, "mansfield park")] <- "Mansfield Park"
@@ -30,14 +30,19 @@ austen_novels3_df <- austen_novels2_df %>%
 
 austen_novels3_df$Date <- as.Date(austen_novels3_df$Date, format = "%Y-%m-%d")
 
+# What was the checkouts for each material type and month.
 pride_df <-austen_novels3_df %>% 
   filter(Name == "Pride and Prejudice") %>% 
   group_by(Date, MaterialType) %>%
   summarize(total_checkouts = sum(Checkouts)) 
-    
-ggplot(pride_df) +
+
+# Line Chart
+pride_chart <- ggplot(pride_df) +
   geom_line(aes(x = Date, y = total_checkouts, color = MaterialType)) + 
-  labs(title = "Total Checkouts by Material Type",
+  labs(title = "Monthly Checkouts by Material Type",
        x = "Date",
-       y = "Total Checkouts",
+       y = "Monthly Checkouts",
        color = "Material Type")
+
+ggplotly(pride_chart)
+

@@ -1,5 +1,5 @@
 ---
-title: "A3: SPL Library Checkouts"
+title: "A3: Jane Austen SPL Library Checkouts"
 output: html_document
 ---
 
@@ -24,47 +24,36 @@ Libraries have a history of keeping records private to protect their members. Ho
 
 Some possible limitation or issue with the data is how "messy" it is. For example, title names differed between different material types of the same title. The book *Pride and Prejudice* has inconsistent title names based on their material type and publisher. Some copies contained an introductionove or annotation, which was mentioned in the title. Another issue was the inclusion of novels not by Austen. Jane Austen has two stories that inspired parody novels (*Pride and Prejudice and Zombies* and *Sense and Sensibility and Sea Monsters*). The dataset included them because they listed Jane Austen as the creator; thus, I had to ensure to eliminate checkouts from these books. 
 
-### Total Checkouts of Each Novel 
-First, I wanted to observe the total checkouts of each novel. Thus,  I grouped the dataset by the date and title of the book to find the monthly sum of checkouts and created a line chart. The graph shows interesting revelations. As we already know, *Pride and Prejudice* was the top novel checked out in the library for the majority of the time over the years. However, the line chart provides a better perception of the novel's popularity. We see a notable gap between *Pride and Prejudice* and the other titles. But we also see significant spikes in the past two years. The pandemic and books may be substantial contributors behind the increase in not only *Pride and Prejudice* but other titles as well. 
+### Jane Austen Novels Checkout Rankings 
 
-We can also observe that *Persuasion* surpassed *Pride and Prejudice* at one point and reaching its highest on July 2022. From prior knowledge, I connected this to the Netflix adaptation of *Persuasion* which highly influenced this influx of checkouts. When researching further, I discovered that around this time, TikTok also started its book club and started with *Persuasion*. We also see this happening to Emma, which was recently adapted into a movie. 
+First, I wanted to derive a visual representation of *total* checkouts between 2005 and 2023 of all six Jane Austen novels to get a complete picture of the overall popularity of each title in the Seattle Public Library. Thus, I used a bar chart to compare how often each title was checked out. 
+
+The chart emphasizes the domination of *Pride and Prejudice* over the other novels. But it also demonstrates just how considerable this novel's influence is. Additionally, it displays the ranking of the other novels. *Persuasion* is the second most popular, followed by* Emma*, *Sense and Sensibility*, *Mansfield Park*, and, lastly (as we calculated earlier), *Northanger Abbey*. The chart also demonstrates how the total checkouts of Jane Austen's *Persuasion*, *Emma*, and *Sense and Sensibility* are very close together. 
+
+However, the last two novels in the chart are low especially compared to *Pride and Prejudice*. One thing that sets *Mansfield Park* apart from *Pride and Prejudice* is the protagonist Franny Price, who, unlike Elizabeth, is more timid. Meanwhile, *Northanger Abbey* is a satirical Gothic novel that differs from Austen's other books. These differences help us understand what characteristics Jane Austen and Seattle Public Library readers look for in a book and enjoy reading. These two novels also have fewer movie adaptions, which can explain the fewer checkouts. 
+
+``````{r, echo = FALSE, code = readLines("chart1.R"), warning = FALSE, message = FALSE}
+```
+
+### Total Checkouts of Each Novel 
+
+To observe the monthly checkouts trends of each novel over time, I grouped the dataset by the date and title of the book to find the monthly sum of checkouts and created a line chart. The graph shows interesting revelations. As we already know, *Pride and Prejudice* was the top novel checked out in the library for the majority of the time over the years. However, the line chart provides a better perception of the novel's popularity. We see a notable gap between *Pride and Prejudice* and the other titles. But we also see significant spikes in the past two years. The pandemic and books may be substantial contributors behind the increase in not only *Pride and Prejudice* but other titles as well. 
+We can also observe that *Persuasion* surpassed *Pride and Prejudice* at one point and reaching its highest on July 2022. From prior knowledge, I connected this to the Netflix adaptation of *Persuasion* which highly influenced this influx of checkouts. When researching further, I discovered that around this time, TikTok also started its book club and started with *Persuasion*. We also see this happening to *Emma*, which was recently adapted into a movie. 
 
 ``````{r, echo = FALSE, warning = FALSE, code = readLines("chart2.R"), message = FALSE}
 ```
 
-### Second Trends Over Time Chart
+### Pride and Prejudice Checkouts by Material Type 
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+Since *Pride and Prejudice* is Jane Austen's top novel, I wanted to dig deeper into what medium is checked out the most over the years. Therefore, I filtered the data set for only *Pride and Prejudice* checkouts and calculated the total checkouts of each material type and date. I again decided to use a line graph to display this data since it is the most appropriate visualization to reveal changes over time (see below). 
 
-The second chart that you will create and include will show another trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+I was surprised at the checkout trends, which differed from my expectations. Initially, I expected to observe more book checkouts than the chart displayed. This expectation probably stemmed from my bias and preference for physical books rather than anything digital. However, upon reflecting on the data, I realized that it is logical for other mediums, such as audio books and ebooks, to have greater checkouts since digital items have multiple copies. In contrast, physical books are limited due to capacity measures. 
 
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
+The line chart also demonstrates the advancement and acceptance of technology over time, as monthly physical book checkouts have decreased substantially from 2005 to the present day. One noteworthy observation is the high volume of audio books in this novel. We see a significant spike in 2019 and increases afterward. The popularity of audio books demonstrates the shift from physical books, to ebooks and finally audio books.
 
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-First I wanted to dive more into the popularity of each novel in the Seattle library over the years. Therefore, I created a
+Seeing this trend, I wonder if audio books have become people's preference or if this is specifically just a trend in *Pride and Prejudice*. The shift to audio books may be due to how busy people are in today's age and also hustle culture. People are more inclined to multitask, and audio books allow them to do so.
 
 ``````{r, echo = FALSE, code = readLines("chart3.R"), warning = FALSE, message = FALSE}
-```
-
-### Your Choice
-
-The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
-
-- You must have clear x and y axis labels
-- The chart needs a clear title.
-- You need a legend for your different line colors and a clear legend title
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart1.R"), warning = FALSE}
 ```
 
 
