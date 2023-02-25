@@ -5,49 +5,31 @@ output: html_document
 
 ### Introduction
 
-An introduction of the data and a description of the trends/books/items you are choosing to analyze (and why!)
+In this report, I will analyze the Seattle library checkouts of works by Jane Austen. Despite the time, Jane Austen continues to be a prevalent author today. Many cherish and admire Jane Austen's novels (me included). Her stories have been translated into several languages and have inspired multiple adaptations, documentaries, and retellings. Jane Austen has various works, including short stories and, of course, her novels. For this analysis, I decided to focus on her six novels: *Sense and Sensibility (1811)*, *Pride and Prejudice (1813*), *Mansfield Park (1814)*, *Persuasion (1817)*, and *Northanger Abbey (1817)*. I excluded *Sandition* because although it was published posthumously, like *Persuasion* and *Northanger Abbey*, it was uncompleted at the time of her death. 
+ 
+I used data from the [SPL Open Data portal](https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/explore) and filtered out all the checkout entries for all materials with Jane Austen as the creator (this included entries that contained "Austen, Jane"). In addition, I included all the years possible to see the popularity trends over time for each novel. I did not exclude any material type but rather had all the different types, including ebooks, audiobooks, sound disks, and more. I wanted to understand how famous each story was as a whole; thus, I tried to capture the data from different forms. Furthermore, I was interested in discovering how the material type may have changed over the years.
 
 ### Summary Information
-
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
-
-These will likely be calculated using your DPLYR skills, answering questions such as:
-
-- What is the average number of checkouts for each item?
-- What is the month or year with the most/least checkouts for a book that you're interested in?
-- What is the month or year with the most/least checkouts for ebooks?
-- How has the number of print book checkouts changed over time?
-
-Feel free to calculate and report values that you find relevant.
+```{r, echo = FALSE, code = readLines("summary.R"), message = FALSE, warning = FALSE}
+```
+The data set revealed exciting details. For example, the data disclosed that in `r year_max_checkouts`, people checked out Jane Austen novels the most with `r max_checkouts` checkouts. This is a fascinating fact to process and shows the relevance of classics in today's age. I then took a step back to analyze the total checkouts from 2006 to 2023 and find which novel was the most popular. As expected, *`r popular_novel`* was checked out the most over the years. The novel (in different forms from physical to digital) was checked out a total of `r popular_novel_checkouts` times! At the same time, *`r unpopular_novel`* was the least popular, only checked out `r unpopular_novel_checkouts` times over the years. 
 
 ### The Dataset
 
-- Who collected/published the data?  
-- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
-- How was the data collected or generated?  
-- Why was the data collected?  
-- What, if any, ethical questions do you need to consider when working with this data?  
-- What are possible limitations or problems with this data?   (at least 200 words)
+The data was collected by the Seattle Public Library and published by the City of Seattle on its open data portal. The dataset captures monthly counts by the title of all checkouts from 2005 to the present (2023). The primary data set contains slightly over 42 million rows and 12 variables, which include: usage class (physical or digital), checkout type (vendor tool used to check out the item), material type (e.g., book, movie, music, etc.), check out year and month, number of checkouts, title, ISBN, creator/author, subjects, publisher, and publication year. 
 
+According to the City of Seattle, the data comes from several current and historical sources. Information about digital item checkouts comes from the media vendors, which include Overdrive, hoopla, Freegal, and RBDigital. However, there are two primary sources for physical items: the Legrady artwork data archives (for works older than 2016) and Horizon ILS (2016 to present).
 
-### First Trends Over Time Chart
+Libraries have a history of keeping records private to protect their members. However, the Seattle Public Library is part of Seattle's Open Data Program, a program dedicated to making data collected by the City of Seattle available to increase transparency, accountability, research, and more. Therefore, one ethical question to consider is whether the privacy of Seattle Public Library members is protected. 
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+Some possible limitation or issue with the data is how "messy" it is. For example, title names differed between different material types of the same title. The book *Pride and Prejudice* has inconsistent title names based on their material type and publisher. Some copies contained an introductionove or annotation, which was mentioned in the title. Another issue was the inclusion of novels not by Austen. Jane Austen has two stories that inspired parody novels (*Pride and Prejudice and Zombies* and *Sense and Sensibility and Sea Monsters*). The dataset included them because they listed Jane Austen as the creator; thus, I had to ensure to eliminate checkouts from these books. 
 
-The first chart that you will create and include will show the trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+### Total Checkouts of Each Novel 
+First, I wanted to observe the total checkouts of each novel. Thus,  I grouped the dataset by the date and title of the book to find the monthly sum of checkouts and created a line chart. The graph shows interesting revelations. As we already know, *Pride and Prejudice* was the top novel checked out in the library for the majority of the time over the years. However, the line chart provides a better perception of the novel's popularity. We see a notable gap between *Pride and Prejudice* and the other titles. But we also see significant spikes in the past two years. The pandemic and books may be substantial contributors behind the increase in not only *Pride and Prejudice* but other titles as well. 
 
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
+We can also observe that *Persuasion* surpassed *Pride and Prejudice* at one point and reaching its highest on July 2022. From prior knowledge, I connected this to the Netflix adaptation of *Persuasion* which highly influenced this influx of checkouts. When researching further, I discovered that around this time, TikTok also started its book club and started with *Persuasion*. We also see this happening to Emma, which was recently adapted into a movie. 
 
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, warning = FALSE, code = readLines("chart1_example.R")}
+``````{r, echo = FALSE, warning = FALSE, code = readLines("chart2.R"), message = FALSE}
 ```
 
 ### Second Trends Over Time Chart
@@ -67,7 +49,9 @@ When we say "clear" or "human readable" titles and labels, that means that you s
 
 Here's an example of how to run an R script inside an RMarkdown file:
 
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+First I wanted to dive more into the popularity of each novel in the Seattle library over the years. Therefore, I created a
+
+``````{r, echo = FALSE, code = readLines("chart3.R"), warning = FALSE, message = FALSE}
 ```
 
 ### Your Choice
@@ -75,12 +59,12 @@ Here's an example of how to run an R script inside an RMarkdown file:
 The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
 
 - You must have clear x and y axis labels
-- The chart needs a clear title 
+- The chart needs a clear title.
 - You need a legend for your different line colors and a clear legend title
 
 Here's an example of how to run an R script inside an RMarkdown file:
 
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+``````{r, echo = FALSE, code = readLines("chart1.R"), warning = FALSE}
 ```
 
 
